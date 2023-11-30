@@ -2,6 +2,7 @@ package com.example.contact.ui
 
 import android.content.Context
 import android.content.Intent
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.example.contact.R
 import com.example.contact.databinding.ContactListBinding
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
+import java.io.File
 
 
 class ContactAdapter(var contactlist:List<ContactData>, var context:Context): RecyclerView.Adapter<ContactViewHolder>() {
@@ -33,9 +35,10 @@ class ContactAdapter(var contactlist:List<ContactData>, var context:Context): Re
         if (currentContact.Image.isNotBlank()) {
             Picasso
                 .get()
-                .load(currentContact.Image)
-//            .resize(80,80)
-//            .centerCrop()
+                .load(
+                    File(currentContact.Image))
+            .resize(120,120)
+            .centerCrop(Gravity.CENTER)
                 .placeholder(R.drawable.image)
                 .error(R.drawable.image)
                 .transform(CropCircleTransformation())
